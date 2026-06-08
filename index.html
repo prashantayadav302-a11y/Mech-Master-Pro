@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechMaster Pro</title>
+
+<style>
+    html{
+scroll-behavior:smooth;
+}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+display:flex;
+min-height:100vh;
+transition:.4s;
+}
+
+body.light{
+background:#f4f4f4;
+color:#111;
+}
+
+.sidebar{
+width:250px;
+background:#111827;
+padding:20px;
+position:fixed;
+height:100%;
+overflow:auto;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:cyan;
+text-align:center;
+margin-bottom:30px;
+}
+
+.menu a{
+display:block;
+padding:15px;
+margin:10px 0;
+text-decoration:none;
+color:white;
+border-radius:10px;
+transition:.3s;
+}
+
+.menu a:hover{
+background:cyan;
+color:black;
+}
+
+.main{
+margin-left:250px;
+padding:30px;
+width:100%;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.toggle{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:cyan;
+cursor:pointer;
+font-weight:bold;
+}
+
+.hero{
+background:linear-gradient(135deg,#06b6d4,#3b82f6);
+padding:40px;
+border-radius:20px;
+margin-bottom:30px;
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+background:#1e293b;
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(0,255,255,.2);
+}
+
+body.light .card{
+background:white;
+color:black;
+}
+
+.card h3{
+margin-bottom:10px;
+color:cyan;
+}
+
+.section-title{
+margin:30px 0;
+font-size:30px;
+}
+
+.calc-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+}
+
+.calc{
+background:#1e293b;
+padding:25px;
+border-radius:20px;
+}
+
+body.light .calc{
+background:white;
+color:black;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+outline:none;
+}
+
+button.calc-btn{
+width:100%;
+padding:12px;
+border:none;
+background:cyan;
+font-weight:bold;
+border-radius:10px;
+cursor:pointer;
+}
+
+.result{
+margin-top:15px;
+font-size:18px;
+font-weight:bold;
+color:lime;
+}
+
+@media(max-width:768px){
+
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+}
+
+.main{
+margin-left:0;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+⚙ MechMaster Pro
+</div>
+
+<div class="menu">
+<a href="#dashboard">Dashboard</a>
+<a href="#rpm">RPM Calculator</a>
+<a href="#torque">Torque Calculator</a>
+<a href="#power">Power Calculator</a>
+<a href="#materials">Materials</a>
+<a href="#converter">Converter</a>
+<a href="#reports">Reports</a>
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+<h2>Mechanical Engineering Toolkit</h2>
+<button class="toggle" onclick="toggleMode()">
+Dark / Light
+</button>
+</div>
+
+<div class="hero" id="dashboard">
+<h1>Welcome Engineer 👨‍🔧</h1>
+<p>
+Professional Mechanical Engineering Dashboard by Prashant Singh
+</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Calculators</h3>
+<p>20+ Engineering Tools</p>
+</div>
+
+<div class="card" id="converter">
+<h3>Unit Converter</h3>
+<p>Multiple Engineering Units</p>
+</div>
+<h2 class="section-title" id="conveter"> Unit Converter</h2>
+
+<div class="calc-grid">
+
+<div class="calc">
+<h3>Length Converter</h3>
+
+<input id="meterInput" placeholder="Meters">
+
+<button class="calc-btn" onclick="meterConvert()">
+Convert
+</button>
+
+<div id="meterResult" class="result"></div>
+
+</div>
+
+</div>
+<h2 class="section-title" id="materials">Material Database</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Steel</h3>
+<p>Density: 7850 kg/m³</p>
+<p>Yield Strength: 250 MPa</p>
+</div>
+
+<div class="card">
+<h3>Aluminium</h3>
+<p>Density: 2700 kg/m³</p>
+<p>Yield Strength: 95 MPa</p>
+</div>
+
+<div class="card">
+<h3>Copper</h3>
+<p>Density: 8960 kg/m³</p>
+<p>Yield Strength: 70 MPa</p>
+</div>
+
+<div class="card">
+<h3>Brass</h3>
+<p>Density: 8500 kg/m³</p>
+<p>Yield Strength: 200 MPa</p>
+</div>
+
+</div>
+<div class="card">
+<h3>Materials Database</h3>
+<p>Steel, Brass, Copper etc.</p>
+</div>
+
+</div>
+
+<h2 class="section-title">
+Engineering Calculators
+<!-- Stress Calculator -->
+
+<div class="calc">
+<h3>Stress Calculator</h3>
+
+<input id="stressForce" placeholder="Force (N)">
+<input id="stressArea" placeholder="Area (m²)">
+
+<button class="calc-btn" onclick="stressCalc()">
+Calculate Stress
+</button>
+
+<div id="stressResult" class="result"></div>
+</div>
+
+<!-- Strain Calculator -->
+
+<div class="calc">
+<h3>Strain Calculator</h3>
+
+<input id="changeLength" placeholder="Change in Length (m)">
+<input id="originalLength" placeholder="Original Length (m)">
+
+<button class="calc-btn" onclick="strainCalc()">
+Calculate Strain
+</button>
+
+<div id="strainResult" class="result"></div>
+</div>
+
+<!-- Gear Ratio Calculator -->
+
+<div class="calc">
+<h3>Gear Ratio Calculator</h3>
+
+<input id="driverGear" placeholder="Driver Gear Teeth">
+<input id="drivenGear" placeholder="Driven Gear Teeth">
+
+<button class="calc-btn" onclick="gearCalc()">
+Calculate Ratio
+</button>
+
+<div id="gearResult" class="result"></div>
+</div>
+</h2>
+
+<div class="calc-grid">
+
+<!-- RPM -->
+
+<div class="calc" id="rpm">
+<h3>RPM Calculator</h3>
+
+<input id="speed" placeholder="Cutting Speed (m/min)">
+
+<input id="diameter" placeholder="Diameter (mm)">
+
+<button class="calc-btn" onclick="rpmCalc()">
+Calculate RPM
+</button>
+
+<div id="rpmResult" class="result"></div>
+
+</div>
+
+<!-- Torque -->
+
+<div class="calc" id="torque">
+<h3>Torque Calculator</h3>
+
+<input id="force" placeholder="Force (N)">
+
+<input id="radius" placeholder="Radius (m)">
+
+<button class="calc-btn" onclick="torqueCalc()">
+Calculate Torque
+</button>
+
+<div id="torqueResult" class="result"></div>
+
+</div>
+
+<!-- Power -->
+
+<div class="calc" id="power">
+<h3>Power Calculator</h3>
+
+<input id="work" placeholder="Work (J)">
+
+<input id="time" placeholder="Time (s)">
+
+<button class="calc-btn" onclick="powerCalc()">
+Calculate Power
+</button>
+
+<div id="powerResult" class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+<h2 class="section-title" id="reports">
+Reports
+</h2>
+
+<div class="card">
+<h3>Reports Section</h3>
+<p>PDF Export and History coming in next update.</p>
+</div>
+<script>
+
+function toggleMode(){
+document.body.classList.toggle("light");
+}
+
+function rpmCalc(){
+
+let V=parseFloat(
+document.getElementById("speed").value
+);
+
+let D=parseFloat(
+document.getElementById("diameter").value
+);
+
+let rpm=(1000*V)/(Math.PI*D);
+
+document.getElementById("rpmResult")
+.innerHTML="RPM = "+rpm.toFixed(2);
+
+}
+
+function torqueCalc(){
+
+let F=parseFloat(
+document.getElementById("force").value
+);
+
+let R=parseFloat(
+document.getElementById("radius").value
+);
+
+let torque=F*R;
+
+document.getElementById("torqueResult")
+.innerHTML="Torque = "+torque.toFixed(2)+" Nm";
+
+}
+
+function powerCalc(){
+
+let W=parseFloat(
+document.getElementById("work").value
+);
+
+let T=parseFloat(
+document.getElementById("time").value
+);
+
+let power=W/T;
+
+document.getElementById("powerResult")
+.innerHTML="Power = "+power.toFixed(2)+" Watt";
+
+}
+
+function stressCalc(){
+
+let force =
+parseFloat(document.getElementById("stressForce").value);
+
+let area =
+parseFloat(document.getElementById("stressArea").value);
+
+let stress = force / area;
+
+document.getElementById("stressResult").innerHTML =
+"Stress = " + stress.toFixed(2) + " Pa";
+
+}
+
+function strainCalc(){
+
+let dl =
+parseFloat(document.getElementById("changeLength").value);
+
+let l =
+parseFloat(document.getElementById("originalLength").value);
+
+let strain = dl / l;
+
+document.getElementById("strainResult").innerHTML =
+"Strain = " + strain.toFixed(4);
+
+}
+
+function gearCalc(){
+
+let driver =
+parseFloat(document.getElementById("driverGear").value);
+
+let driven =
+parseFloat(document.getElementById("drivenGear").value);
+
+let ratio = driven / driver;
+
+document.getElementById("gearResult").innerHTML =
+"Gear Ratio = " + ratio.toFixed(2);
+
+}
+
+function meterConvert(){
+
+let meter =
+parseFloat(document.getElementById("meterInput").value);
+
+let cm = meter * 100;
+let mm = meter * 1000;
+let feet = meter * 3.28084;
+
+document.getElementById("meterResult").innerHTML =
+`
+${cm.toFixed(2)} cm<br>
+${mm.toFixed(2)} mm<br>
+${feet.toFixed(2)} ft
+`;
+
+}
+</script>
+
+</body>
+</html>
