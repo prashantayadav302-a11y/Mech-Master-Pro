@@ -1,324 +1,198 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scientific Calculator</title>
 
 <style>
 
-/* ===== FUTURISTIC SCIENTIFIC CALCULATOR ===== */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
 
 body{
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
+padding:15px;
 
-background:
-radial-gradient(circle at top left,#00ffff22,transparent 40%),
-radial-gradient(circle at bottom right,#7c3aed33,transparent 40%),
-linear-gradient(135deg,#020617,#0f172a,#1e293b);
-
-overflow:hidden;
-}
-
-/* Floating Glow Background */
-
-body::before{
-content:"";
-position:fixed;
-width:700px;
-height:700px;
-background:cyan;
-filter:blur(250px);
-opacity:.15;
-animation:floatGlow 8s infinite alternate;
-}
-
-@keyframes floatGlow{
-
-0%{
-transform:translate(-100px,-50px);
-}
-
-100%{
-transform:translate(150px,100px);
-}
-
-}
-
-/* Calculator */
-
-.scientific-calc{
-
-position:relative;
-
-width:450px;
-
-padding:30px;
-
-border-radius:30px;
-
-background:rgba(255,255,255,.05);
-
-backdrop-filter:blur(25px);
--webkit-backdrop-filter:blur(25px);
-
-border:1px solid rgba(255,255,255,.1);
-
-box-shadow:
-0 0 30px rgba(0,255,255,.2),
-0 0 80px rgba(0,255,255,.15);
-
-animation:
-cardFloat 4s ease-in-out infinite;
-
-overflow:hidden;
-
-}
-
-/* RGB Animated Border */
-
-.scientific-calc::before{
-
-content:"";
-
-position:absolute;
-
-inset:-3px;
-
-border-radius:30px;
-
-background:
-linear-gradient(
-90deg,
-cyan,
-blue,
-violet,
-cyan
+background:linear-gradient(
+-45deg,
+#0f172a,
+#1e3a8a,
+#7c3aed,
+#0f172a
 );
 
-background-size:400%;
-
-z-index:-1;
-
-animation:
-rgbBorder 8s linear infinite;
-
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
 }
 
-@keyframes rgbBorder{
-
-0%{
-background-position:0%;
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
-100%{
-background-position:400%;
-}
-
-}
-
-/* Floating Card */
-
-@keyframes cardFloat{
-
-0%{
-transform:translateY(0);
-}
-
-50%{
-transform:translateY(-10px);
-}
-
-100%{
-transform:translateY(0);
-}
-
-}
-
-/* Heading */
-
-h1{
-
-text-align:center;
-
-margin-bottom:25px;
-
-font-size:36px;
-
-color:white;
-
-text-shadow:
-0 0 10px cyan,
-0 0 20px cyan,
-0 0 40px cyan;
-
-}
-
-/* Display */
-
-#display{
-
+.calculator{
 width:100%;
+max-width:420px;
 
-height:80px;
+background:rgba(255,255,255,0.08);
 
-font-size:32px;
-
-text-align:right;
+backdrop-filter:blur(15px);
 
 padding:20px;
 
-border:none;
+border-radius:25px;
 
-border-radius:20px;
-
-background:#020617;
-
-color:#00ffff;
-
-margin-bottom:20px;
+border:1px solid rgba(255,255,255,0.15);
 
 box-shadow:
-inset 0 0 20px rgba(0,255,255,.4),
-0 0 20px rgba(0,255,255,.2);
+0 0 25px rgba(0,255,255,0.25),
+0 0 50px rgba(124,58,237,0.25);
+
+animation:floatCard 4s ease-in-out infinite;
+}
+
+@keyframes floatCard{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-6px);
+}
+}
+
+h1{
+text-align:center;
+color:white;
+margin-bottom:15px;
 
 text-shadow:
 0 0 10px cyan,
 0 0 20px cyan;
-
 }
 
-/* Button Grid */
-
-.buttons{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:12px;
-
-}
-
-/* Buttons */
-
-button{
-
+#display{
+width:100%;
 height:70px;
 
 border:none;
 
-border-radius:18px;
+border-radius:15px;
 
-font-size:22px;
+padding:15px;
 
-font-weight:bold;
+font-size:28px;
 
-cursor:pointer;
+text-align:right;
+
+background:#0f172a;
 
 color:white;
 
-background:
-linear-gradient(
+margin-bottom:15px;
+
+outline:none;
+}
+
+.buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+}
+
+button{
+height:55px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-size:18px;
+
+font-weight:bold;
+
+color:white;
+
+background:linear-gradient(
 135deg,
 #06b6d4,
 #3b82f6
 );
 
-transition:.35s;
-
-box-shadow:
-0 5px 15px rgba(0,0,0,.3);
-
+transition:.25s;
 }
-
-/* Hover */
 
 button:hover{
-
-transform:
-translateY(-6px)
-scale(1.08);
+transform:translateY(-3px) scale(1.04);
 
 box-shadow:
-0 0 15px cyan,
-0 0 35px cyan,
-0 0 60px cyan;
-
+0 0 10px cyan,
+0 0 20px cyan;
 }
-
-/* Click */
 
 button:active{
-
-transform:scale(.92);
-
+transform:scale(.95);
 }
 
-/* Equal Button */
-
 .equal{
-
-background:
-linear-gradient(
+background:linear-gradient(
 135deg,
 #22c55e,
 #16a34a
 );
-
 }
 
-/* Clear Button */
-
 .clear{
-
-background:
-linear-gradient(
+background:linear-gradient(
 135deg,
 #ef4444,
 #dc2626
 );
-
 }
-
-/* Back Button */
 
 .back{
-
 display:block;
-
-margin-top:20px;
-
+margin-top:15px;
 text-align:center;
-
-color:cyan;
-
 text-decoration:none;
-
+color:white;
 font-weight:bold;
-
-transition:.3s;
-
 }
 
-.back:hover{
+@media(max-width:480px){
 
-text-shadow:
-0 0 10px cyan,
-0 0 25px cyan;
+.calculator{
+padding:15px;
+}
+
+button{
+height:48px;
+font-size:15px;
+}
+
+#display{
+height:60px;
+font-size:22px;
+}
 
 }
 
 </style>
-
 </head>
-
-
 
 <body>
 
-<div class="scientific-calc">
+<div class="calculator">
 
 <h1>Scientific Calculator</h1>
 
@@ -348,8 +222,8 @@ text-shadow:
 
 <button onclick="squareRoot()">√</button>
 <button onclick="square()">x²</button>
-<button onclick="appendValue('Math.PI')">π</button>
-<button onclick="appendValue('Math.E')">e</button>
+<button onclick="appendPi()">π</button>
+<button onclick="appendE()">e</button>
 
 <button onclick="sin()">sin</button>
 <button onclick="cos()">cos</button>
@@ -365,60 +239,6 @@ text-shadow:
 </div>
 
 <script>
-function appendValue(val){
-document.getElementById("display").value+=val;
-}
-
-function clearDisplay(){
-document.getElementById("display").value="";
-}
-
-function calculate(){
-try{
-document.getElementById("display").value=
-eval(document.getElementById("display").value);
-}catch{
-alert("Invalid Expression");
-}
-}
-
-function squareRoot(){
-let d=document.getElementById("display");
-d.value=Math.sqrt(eval(d.value));
-}
-
-function square(){
-let d=document.getElementById("display");
-d.value=Math.pow(eval(d.value),2);
-}
-
-function sin(){
-let d=document.getElementById("display");
-d.value=Math.sin(eval(d.value));
-}
-
-function cos(){
-let d=document.getElementById("display");
-d.value=Math.cos(eval(d.value));
-}
-
-function tan(){
-let d=document.getElementById("display");
-d.value=Math.tan(eval(d.value));
-}
-
-function log(){
-let d=document.getElementById("display");
-d.value=Math.log10(eval(d.value));
-}
-</script>
-
-</body>
-
-
-<script>
-
-/* SAARA JAVASCRIPT YAHA HOGA */<script>
 
 function appendValue(value){
 document.getElementById("display").value += value;
@@ -429,48 +249,108 @@ document.getElementById("display").value = "";
 }
 
 function calculate(){
+
 try{
-document.getElementById("display").value =
-eval(document.getElementById("display").value);
+
+let result = eval(
+document.getElementById("display").value
+);
+
+document.getElementById("display").value = result;
+
 }
 catch{
+
 alert("Invalid Expression");
+
 }
+
 }
 
 function squareRoot(){
-let d = document.getElementById("display");
-d.value = Math.sqrt(eval(d.value));
+
+let d=document.getElementById("display");
+
+d.value=Math.sqrt(parseFloat(d.value));
+
 }
 
 function square(){
-let d = document.getElementById("display");
-d.value = Math.pow(eval(d.value),2);
+
+let d=document.getElementById("display");
+
+d.value=Math.pow(parseFloat(d.value),2);
+
+}
+
+function appendPi(){
+
+document.getElementById("display").value=Math.PI.toFixed(8);
+
+}
+
+function appendE(){
+
+document.getElementById("display").value=Math.E.toFixed(8);
+
 }
 
 function sin(){
-let d = document.getElementById("display");
-d.value = Math.sin(eval(d.value));
+
+let d=document.getElementById("display");
+
+let angle=parseFloat(d.value);
+
+if(isNaN(angle)) return;
+
+d.value=Math.sin(angle*Math.PI/180).toFixed(6);
+
 }
 
 function cos(){
-let d = document.getElementById("display");
-d.value = Math.cos(eval(d.value));
+
+let d=document.getElementById("display");
+
+let angle=parseFloat(d.value);
+
+if(isNaN(angle)) return;
+
+d.value=Math.cos(angle*Math.PI/180).toFixed(6);
+
 }
 
 function tan(){
-let d = document.getElementById("display");
-d.value = Math.tan(eval(d.value));
+
+let d=document.getElementById("display");
+
+let angle=parseFloat(d.value);
+
+if(isNaN(angle)) return;
+
+d.value=Math.tan(angle*Math.PI/180).toFixed(6);
+
 }
 
 function log(){
-let d = document.getElementById("display");
-d.value = Math.log10(eval(d.value));
+
+let d=document.getElementById("display");
+
+let num=parseFloat(d.value);
+
+if(isNaN(num) || num<=0){
+
+alert("Enter a positive number");
+
+return;
+
 }
 
-</script>
+d.value=Math.log10(num).toFixed(6);
+
+}
 
 </script>
 
 </body>
 </html>
+
