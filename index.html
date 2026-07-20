@@ -234,6 +234,93 @@ font-size:28px;
 }
 
 }
+/* Scientific Calculator */
+
+.scientific-calc{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+padding:25px;
+border-radius:25px;
+box-shadow:0 0 30px rgba(0,255,255,0.25);
+animation:fadeInUp 1s ease;
+}
+
+.scientific-calc h3{
+text-align:center;
+margin-bottom:20px;
+font-size:28px;
+color:cyan;
+text-shadow:0 0 15px cyan;
+}
+
+#display{
+width:100%;
+height:70px;
+font-size:28px;
+text-align:right;
+padding:15px;
+border:none;
+border-radius:15px;
+background:#0f172a;
+color:white;
+box-shadow:inset 0 0 15px rgba(0,255,255,.4);
+margin-bottom:20px;
+}
+
+.calc-buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+.calc-buttons button{
+height:65px;
+border:none;
+border-radius:15px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+background:linear-gradient(135deg,#06b6d4,#3b82f6);
+color:white;
+transition:.3s;
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+
+.calc-buttons button:hover{
+transform:translateY(-5px) scale(1.05);
+box-shadow:0 0 25px cyan;
+}
+
+.calc-buttons button:active{
+transform:scale(.92);
+}
+
+.equal-btn{
+grid-column:span 2;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+}
+
+.clear-btn{
+background:linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+/* Entry Animation */
+
+@keyframes fadeInUp{
+
+0%{
+opacity:0;
+transform:translateY(50px);
+}
+
+100%{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
 </style>
 </head>
 
@@ -253,7 +340,16 @@ font-size:28px;
 <a href="#materials">Materials</a>
 <a href="#converter">Converter</a>
 <a href="scientific.html">Scientific Calculator</a>
+<a href="#speedcalc">Speed Calculator</a>
+<a href="#weight">Material Weight</a>
+<a href="#efficiency">Efficiency</a>
+<a href="#pressure">Pressure</a>
+<a href="#ke">Kinetic Energy</a>
+<a href="#pe">Potential Energy</a>
+<a href="#momentum">Momentum</a>
+<a href="#density">Density</a>
 <a href="#reports">Reports</a>
+
 </div>
 
 </div>
@@ -389,6 +485,24 @@ Calculate Ratio
 
 <div class="calc-grid">
 
+    <!-- Speed Calculator -->
+
+<div class="calc" id="speedcalc">
+
+<h3>Speed Calculator</h3>
+
+<input id="distance" type="number" placeholder="Distance (m)">
+
+<input id="timeSpeed" type="number" placeholder="Time (s)">
+
+<button class="calc-btn" onclick="speedCalc()">
+Calculate Speed
+</button>
+
+<div id="speedResult" class="result"></div>
+
+</div>
+
 <!-- RPM -->
 
 <div class="calc" id="rpm">
@@ -441,6 +555,89 @@ Calculate Power
 </div>
 
 </div>
+<!-- Material Weight Calculator -->
+<div class="calc" id="weight">
+<h3>Material Weight Calculator</h3>
+
+<input id="densityWeight" type="number" placeholder="Density (kg/m³)">
+<input id="volumeWeight" type="number" placeholder="Volume (m³)">
+
+<button class="calc-btn" onclick="weightCalc()">Calculate</button>
+
+<div id="weightResult" class="result"></div>
+</div>
+
+<!-- Efficiency Calculator -->
+<div class="calc" id="efficiency">
+<h3>Efficiency Calculator</h3>
+
+<input id="outputPower" type="number" placeholder="Output Power">
+<input id="inputPower" type="number" placeholder="Input Power">
+
+<button class="calc-btn" onclick="efficiencyCalc()">Calculate</button>
+
+<div id="efficiencyResult" class="result"></div>
+</div>
+
+<!-- Pressure Calculator -->
+<div class="calc" id="pressure">
+<h3>Pressure Calculator</h3>
+
+<input id="pressureForce" type="number" placeholder="Force (N)">
+<input id="pressureArea" type="number" placeholder="Area (m²)">
+
+<button class="calc-btn" onclick="pressureCalc()">Calculate</button>
+
+<div id="pressureResult" class="result"></div>
+</div>
+
+<!-- Kinetic Energy Calculator -->
+<div class="calc" id="ke">
+<h3>Kinetic Energy Calculator</h3>
+
+<input id="massKE" type="number" placeholder="Mass (kg)">
+<input id="velocityKE" type="number" placeholder="Velocity (m/s)">
+
+<button class="calc-btn" onclick="keCalc()">Calculate</button>
+
+<div id="keResult" class="result"></div>
+</div>
+
+<!-- Potential Energy Calculator -->
+<div class="calc" id="pe">
+<h3>Potential Energy Calculator</h3>
+
+<input id="massPE" type="number" placeholder="Mass (kg)">
+<input id="heightPE" type="number" placeholder="Height (m)">
+
+<button class="calc-btn" onclick="peCalc()">Calculate</button>
+
+<div id="peResult" class="result"></div>
+</div>
+
+<!-- Momentum Calculator -->
+<div class="calc" id="momentum">
+<h3>Momentum Calculator</h3>
+
+<input id="massMomentum" type="number" placeholder="Mass (kg)">
+<input id="velocityMomentum" type="number" placeholder="Velocity (m/s)">
+
+<button class="calc-btn" onclick="momentumCalc()">Calculate</button>
+
+<div id="momentumResult" class="result"></div>
+</div>
+
+<!-- Density Calculator -->
+<div class="calc" id="density">
+<h3>Density Calculator</h3>
+
+<input id="massDensity" type="number" placeholder="Mass (kg)">
+<input id="volumeDensity" type="number" placeholder="Volume (m³)">
+
+<button class="calc-btn" onclick="densityCalc()">Calculate</button>
+
+<div id="densityResult" class="result"></div>
+</div>
 
 </div>
 <h2 class="section-title" id="reports">
@@ -452,7 +649,23 @@ Reports
 <p>PDF Export and History coming in next update.</p>
 </div>
 <script>
+function appendValue(value){
+document.getElementById("display").value += value;
+}
 
+function clearDisplay(){
+document.getElementById("display").value = "";
+}
+
+function calculate(){
+try{
+document.getElementById("display").value =
+eval(document.getElementById("display").value);
+}
+catch{
+alert("Invalid Expression");
+}
+}
 function toggleMode(){
 document.body.classList.toggle("light");
 }
@@ -569,6 +782,80 @@ ${mm.toFixed(2)} mm<br>
 ${feet.toFixed(2)} ft
 `;
 
+}
+function speedCalc(){
+
+let distance = parseFloat(
+document.getElementById("distance").value
+);
+
+let time = parseFloat(
+document.getElementById("timeSpeed").value
+);
+
+if(isNaN(distance) || isNaN(time) || time<=0){
+
+document.getElementById("speedResult").innerHTML =
+"Please enter valid values.";
+
+return;
+
+}
+
+let speed = distance / time;
+
+document.getElementById("speedResult").innerHTML =
+"Speed = " + speed.toFixed(2) + " m/s";
+
+}
+function weightCalc(){
+let d=parseFloat(document.getElementById("densityWeight").value);
+let v=parseFloat(document.getElementById("volumeWeight").value);
+document.getElementById("weightResult").innerHTML=
+"Weight = "+(d*v).toFixed(2)+" kg";
+}
+
+function efficiencyCalc(){
+let out=parseFloat(document.getElementById("outputPower").value);
+let input=parseFloat(document.getElementById("inputPower").value);
+document.getElementById("efficiencyResult").innerHTML=
+"Efficiency = "+((out/input)*100).toFixed(2)+" %";
+}
+
+function pressureCalc(){
+let f=parseFloat(document.getElementById("pressureForce").value);
+let a=parseFloat(document.getElementById("pressureArea").value);
+document.getElementById("pressureResult").innerHTML=
+"Pressure = "+(f/a).toFixed(2)+" Pa";
+}
+
+function keCalc(){
+let m=parseFloat(document.getElementById("massKE").value);
+let v=parseFloat(document.getElementById("velocityKE").value);
+document.getElementById("keResult").innerHTML=
+"Kinetic Energy = "+(0.5*m*v*v).toFixed(2)+" J";
+}
+
+function peCalc(){
+let m=parseFloat(document.getElementById("massPE").value);
+let h=parseFloat(document.getElementById("heightPE").value);
+let g=9.81;
+document.getElementById("peResult").innerHTML=
+"Potential Energy = "+(m*g*h).toFixed(2)+" J";
+}
+
+function momentumCalc(){
+let m=parseFloat(document.getElementById("massMomentum").value);
+let v=parseFloat(document.getElementById("velocityMomentum").value);
+document.getElementById("momentumResult").innerHTML=
+"Momentum = "+(m*v).toFixed(2)+" kg·m/s";
+}
+
+function densityCalc(){
+let m=parseFloat(document.getElementById("massDensity").value);
+let v=parseFloat(document.getElementById("volumeDensity").value);
+document.getElementById("densityResult").innerHTML=
+"Density = "+(m/v).toFixed(2)+" kg/m³";
 }
 </script>
 
