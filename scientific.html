@@ -148,7 +148,7 @@ transform:scale(.95);
 background:linear-gradient(
 135deg,
 #22c55e,
-#16a34a
+#34754c
 );
 }
 
@@ -190,167 +190,254 @@ font-size:22px;
 </style>
 </head>
 
-<body>
-
 <div class="calculator">
 
-<h1>Scientific Calculator</h1>
+<h1>🧮 Scientific Calculator</h1>
 
 <input type="text" id="display" readonly>
 
 <div class="buttons">
 
+<!-- Row 1 -->
+<button class="clear" onclick="clearDisplay()">AC</button>
+<button onclick="backspace()">⌫</button>
+<button onclick="appendValue('%')">%</button>
+<button onclick="appendValue('/')">÷</button>
+
+<!-- Row 2 -->
 <button onclick="appendValue('7')">7</button>
 <button onclick="appendValue('8')">8</button>
 <button onclick="appendValue('9')">9</button>
-<button onclick="appendValue('/')">÷</button>
+<button onclick="appendValue('*')">×</button>
 
+<!-- Row 3 -->
 <button onclick="appendValue('4')">4</button>
 <button onclick="appendValue('5')">5</button>
 <button onclick="appendValue('6')">6</button>
-<button onclick="appendValue('*')">×</button>
+<button onclick="appendValue('-')">−</button>
 
+<!-- Row 4 -->
 <button onclick="appendValue('1')">1</button>
 <button onclick="appendValue('2')">2</button>
 <button onclick="appendValue('3')">3</button>
-<button onclick="appendValue('-')">−</button>
+<button onclick="appendValue('+')">+</button>
 
+<!-- Row 5 -->
 <button onclick="appendValue('0')">0</button>
 <button onclick="appendValue('.')">.</button>
 <button class="equal" onclick="calculate()">=</button>
-<button onclick="appendValue('+')">+</button>
-
 <button onclick="squareRoot()">√</button>
-<button onclick="square()">x²</button>
-<button onclick="appendPi()">π</button>
-<button onclick="appendE()">e</button>
 
+<!-- Row 6 -->
+<button onclick="square()">x²</button>
+<button onclick="cube()">x³</button>
+<button onclick="power()">xʸ</button>
+<button onclick="inverse()">1/x</button>
+
+<!-- Row 7 -->
 <button onclick="sin()">sin</button>
 <button onclick="cos()">cos</button>
 <button onclick="tan()">tan</button>
 <button onclick="log()">log</button>
 
-<button class="clear" onclick="clearDisplay()">C</button>
+<!-- Row 8 -->
+<button onclick="ln()">ln</button>
+<button onclick="factorial()">n!</button>
+<button onclick="appendPi()">π</button>
+<button onclick="appendE()">e</button>
+
+<!-- Row 9 -->
+<button onclick="toggleMode()">Deg</button>
+<button onclick="toggleTheme()">🌙</button>
+<button onclick="copyResult()">📋</button>
+<button onclick="historyOpen()">📜</button>
 
 </div>
 
-<a href="index.html" class="back">⬅ Back to MechMaster Pro</a>
+<div id="history"></div>
+
+<a href="index.html" class="back">
+⬅ Back to MechMaster Pro
+</a>
 
 </div>
-
 <script>
 
-function appendValue(value){
-document.getElementById("display").value += value;
+let isDegree = true;
+let history = [];
+
+function display(){
+    return document.getElementById("display");
+}
+
+function appendValue(val){
+    display().value += val;
 }
 
 function clearDisplay(){
-document.getElementById("display").value = "";
+    display().value = "";
+}
+
+function backspace(){
+    display().value = display().value.slice(0,-1);
 }
 
 function calculate(){
-
-try{
-
-let result = eval(
-document.getElementById("display").value
-);
-
-document.getElementById("display").value = result;
-
-}
-catch{
-
-alert("Invalid Expression");
-
-}
-
+    try{
+        let result = eval(display().value);
+        history.push(display().value + " = " + result);
+        display().value = result;
+    }catch{
+        alert("Invalid Expression");
+    }
 }
 
 function squareRoot(){
-
-let d=document.getElementById("display");
-
-d.value=Math.sqrt(parseFloat(d.value));
-
+    display().value = Math.sqrt(parseFloat(display().value));
 }
 
 function square(){
+    let n = parseFloat(display().value);
+    display().value = Math.pow(n,2);
+}
 
-let d=document.getElementById("display");
+function cube(){
+    let n = parseFloat(display().value);
+    display().value = Math.pow(n,3);
+}
 
-d.value=Math.pow(parseFloat(d.value),2);
+function power(){
+    let p = prompt("Enter Power");
+    if(p!=null){
+        let n = parseFloat(display().value);
+        display().value = Math.pow(n,p);
+    }
+}
 
+function inverse(){
+    display().value = 1/parseFloat(display().value);
 }
 
 function appendPi(){
-
-document.getElementById("display").value=Math.PI.toFixed(8);
-
+    display().value = Math.PI;
 }
 
 function appendE(){
-
-document.getElementById("display").value=Math.E.toFixed(8);
-
+    display().value = Math.E;
 }
 
 function sin(){
-
-let d=document.getElementById("display");
-
-let angle=parseFloat(d.value);
-
-if(isNaN(angle)) return;
-
-d.value=Math.sin(angle*Math.PI/180).toFixed(6);
-
+    let n=parseFloat(display().value);
+    if(isDegree)
+        n=n*Math.PI/180;
+    display().value=Math.sin(n).toFixed(8);
 }
 
 function cos(){
-
-let d=document.getElementById("display");
-
-let angle=parseFloat(d.value);
-
-if(isNaN(angle)) return;
-
-d.value=Math.cos(angle*Math.PI/180).toFixed(6);
-
+    let n=parseFloat(display().value);
+    if(isDegree)
+        n=n*Math.PI/180;
+    display().value=Math.cos(n).toFixed(8);
 }
 
 function tan(){
-
-let d=document.getElementById("display");
-
-let angle=parseFloat(d.value);
-
-if(isNaN(angle)) return;
-
-d.value=Math.tan(angle*Math.PI/180).toFixed(6);
-
+    let n=parseFloat(display().value);
+    if(isDegree)
+        n=n*Math.PI/180;
+    display().value=Math.tan(n).toFixed(8);
 }
 
 function log(){
+    display().value=Math.log10(parseFloat(display().value)).toFixed(8);
+}
 
-let d=document.getElementById("display");
+function ln(){
+    display().value=Math.log(parseFloat(display().value)).toFixed(8);
+}
 
-let num=parseFloat(d.value);
+function factorial(){
 
-if(isNaN(num) || num<=0){
+    let n=parseInt(display().value);
 
-alert("Enter a positive number");
+    if(n<0){
+        alert("Invalid");
+        return;
+    }
+
+    let f=1;
+
+    for(let i=1;i<=n;i++)
+        f*=i;
+
+    display().value=f;
+
+}
+
+function toggleMode(){
+
+    isDegree=!isDegree;
+
+    alert(
+        isDegree
+        ?"Degree Mode"
+        :"Radian Mode"
+    );
+
+}
+
+function copyResult(){
+
+navigator.clipboard.writeText(display().value);
+
+alert("Copied");
+
+}
+
+function historyOpen(){
+
+let h=document.getElementById("history");
+
+if(history.length==0){
+
+h.innerHTML="No History";
 
 return;
 
 }
 
-d.value=Math.log10(num).toFixed(6);
+h.innerHTML="<h3>History</h3>";
+
+history.forEach(item=>{
+
+h.innerHTML+="<p>"+item+"</p>";
+
+});
 
 }
+
+function toggleTheme(){
+
+document.body.classList.toggle("light");
+
+}
+
+document.addEventListener("keydown",function(e){
+
+if(!isNaN(e.key) || "+-*/.%".includes(e.key))
+appendValue(e.key);
+
+if(e.key=="Enter")
+calculate();
+
+if(e.key=="Backspace")
+backspace();
+
+if(e.key=="Escape")
+clearDisplay();
+
+});
 
 </script>
 
 </body>
 </html>
-
